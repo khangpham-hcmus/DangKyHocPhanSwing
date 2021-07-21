@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojo.Sinhvienhocphan" table="sinhvienhocphan" schema="dkhp">
+        <composite-id name="idSinhVienDKHP" class="pojo.SinhvienhocphanPK">
+            <key-property name="masv">
+                <column name="masv" sql-type="varchar(10)" length="10"/>
+            </key-property>
+            <key-property name="mamh">
+                <column name="mamh" sql-type="varchar(8)" length="8"/>
+            </key-property>
+            <key-property name="malop">
+                <column name="malop" sql-type="varchar(6)" length="6"/>
+            </key-property>
+            <key-property name="mahk">
+                <column name="mahk" sql-type="varchar(6)" length="6"/>
+            </key-property>
+        </composite-id>
+
+        <many-to-one name="hocphan"
+                     fetch="join"
+                     lazy="false"
+                     cascade="save-update,delete"
+                     insert="false"
+                     update="false"
+                     >
+            <column name="mamh" length="8" not-null="true"></column>
+            <column name="mahk" length="6" not-null="true"></column>
+            <column name="malop" length="6" not-null="true"></column>
+        </many-to-one>
+
+
+    </class>
+</hibernate-mapping>

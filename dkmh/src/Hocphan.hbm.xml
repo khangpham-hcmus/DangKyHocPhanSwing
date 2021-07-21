@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojo.Hocphan" table="hocphan" schema="dkhp">
+        <composite-id name="idHocPhan" class="pojo.HocphanPK">
+            <key-property name="mamh">
+                <column name="mamh" sql-type="varchar(8)" length="8"/>
+            </key-property>
+            <key-property name="malop">
+                <column name="malop" sql-type="varchar(6)" length="6"/>
+            </key-property>
+            <key-property name="mahk">
+                <column name="mahk" sql-type="varchar(6)" length="6"/>
+            </key-property>
+        </composite-id>
+
+        <property name="gvlt">
+            <column name="gvlt" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="cahoc">
+            <column name="cahoc" sql-type="int" not-null="true"/>
+        </property>
+        <property name="phonghoc">
+            <column name="phonghoc" sql-type="varchar(4)" length="4" not-null="true"/>
+        </property>
+        <property name="ngayhoc">
+            <column name="ngayhoc" sql-type="int" not-null="true"/>
+        </property>
+
+        <many-to-one name="lophoc" class="pojo.Lophoc"
+                     fetch="join"
+                     cascade="save-update,delete"
+                     insert="false"
+                     update="false"
+                     lazy="false">
+            <column name="malop" length="6" not-null="true"></column>
+        </many-to-one>
+
+        <many-to-one name="hocki" class="pojo.Hocki"
+                     fetch="join"
+                     cascade="save-update,delete"
+                     insert="false"
+                     update="false"
+                     lazy="false">
+            <column name="mahk" length="6" not-null="true"></column>
+        </many-to-one>
+
+        <many-to-one name="monhoc" class="pojo.Monhoc"
+                     fetch="join"
+                     cascade="save-update,delete"
+                     lazy="false"
+                     insert="false"
+                     update="false"
+                     >
+            <column name="mamh" length="8" not-null="true"></column>
+        </many-to-one>
+
+        <set name="danhsachSinhVienDKHP" inverse="true">
+            <key>
+                <column name="mamh" length="8" not-null="true"></column>
+                <column name="mahk" length="6" not-null="true"></column>
+                <column name="malop" length="6" not-null="true"></column>
+            </key>
+            <one-to-many class="pojo.Sinhvienhocphan"></one-to-many>
+        </set>
+
+    </class>
+</hibernate-mapping>

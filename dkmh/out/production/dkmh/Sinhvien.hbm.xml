@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojo.Sinhvien" table="sinhvien" schema="dkhp">
+        <id name="masv">
+            <column name="masv" sql-type="varchar(10)" length="10"/>
+        </id>
+        <property name="hoten">
+            <column name="hoten" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="gioitinh">
+            <column name="gioitinh" sql-type="varchar(3)" length="3" not-null="true"/>
+        </property>
+
+        <many-to-one name="taikhoan" class="pojo.Taikhoan"
+                     fetch="join"
+                     cascade="save-update,delete"
+                     lazy="false"
+                     >
+            <column name="cmnd" length="10" unique="true"></column>
+        </many-to-one>
+
+        <many-to-one name="lophoc" class="pojo.Lophoc"
+                     fetch="join"
+                     cascade="save-update,delete"
+                     lazy="false">
+            <column name="malop" not-null="true" length="6"></column>
+        </many-to-one>
+
+        <set name="danhsachHocPhanDK" inverse="true">
+            <key>
+                <column name="masv" length="10" not-null="true"></column>
+            </key>
+            <one-to-many class="pojo.Sinhvienhocphan"></one-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

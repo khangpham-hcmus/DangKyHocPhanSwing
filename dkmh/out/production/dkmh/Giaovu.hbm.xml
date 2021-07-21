@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojo.Giaovu" table="giaovu" schema="dkhp">
+        <id name="magiaovu">
+            <column name="magiaovu" sql-type="varchar(10)" length="10"/>
+        </id>
+        <property name="hoten">
+            <column name="hoten" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+
+        <many-to-one name="taikhoan" class="pojo.Taikhoan"
+                     fetch="join"
+                     cascade="save-update,delete"
+                     lazy="false">
+            <column name="cmnd" length="10" unique="true"></column>
+        </many-to-one>
+
+    </class>
+</hibernate-mapping>
